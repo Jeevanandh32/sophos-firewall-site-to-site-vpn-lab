@@ -1,0 +1,12 @@
+Connections:
+S2S_A_to_B-1:  10.10.1.125...23.21.5.108  IKEv2, dpddelay=30s
+S2S_A_to_B-1:   local:  [44.218.174.190] uses pre-shared key authentication
+S2S_A_to_B-1:   remote: [23.21.5.108] uses pre-shared key authentication
+S2S_A_to_B-1:   child:  10.10.0.0/24 === 10.20.0.0/24 TUNNEL, dpdaction=start
+Security Associations (1 up, 0 connecting):
+S2S_A_to_B-1[1]: ESTABLISHED 3 minutes ago, 10.10.1.125[44.218.174.190]...23.21.5.108[23.21.5.108]
+S2S_A_to_B-1[1]: IKEv2 SPIs: a8946b3264315c8c_i* 85f6f3e65487f29b_r, rekeying in 78 minutes
+S2S_A_to_B-1[1]: IKE proposal: AES_CBC_256/HMAC_SHA2_512_256/PRF_HMAC_SHA2_512/CURVE_25519
+S2S_A_to_B-1{1}:  INSTALLED, TUNNEL, reqid 1, ESP in UDP SPIs: c9b3b081_i cd01b9f5_o
+S2S_A_to_B-1{1}:  AES_CBC_256/HMAC_SHA2_512_256, 1259 bytes_i (18 pkts, 24s ago), 1259 bytes_o (18 pkts, 24s ago), rekeying in 46 minutes
+S2S_A_to_B-1{1}:   10.10.0.0/24 === 10.20.0.0/24

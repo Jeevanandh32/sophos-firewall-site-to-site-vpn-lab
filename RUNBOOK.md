@@ -51,13 +51,15 @@ Create these rules under **Rules and policies > Firewall rules > Add firewall ru
 
 ## 4. Site-to-site IPsec VPN (IKEv2, PSK)
 
+On **both** firewalls, start with **Administration > Device access**: tick **IPsec** in the **WAN** row, then click Apply and OK. Without it, IKE is dropped and the tunnel never starts.
+
 Pick a long random pre-shared key (PSK), for example with `openssl rand -base64 32`, and use the same one on both sides.
 
 Create the connection under **Site-to-site VPN > IPsec > Add**:
 
 | Field | Site A | Site B |
 |-------|--------|--------|
-| Name | `S2S-A-to-B` | `S2S-B-to-A` |
+| Name | `S2S_A_to_B` | `S2S_B_to_A` (no hyphens, which SFOS rejects) |
 | Connection type | Site-to-site | Site-to-site |
 | Gateway type | **Initiate the connection** | **Respond only** |
 | Activate on save / Create firewall rule | ✔ / ✔ | ✔ / ✔ |
@@ -72,7 +74,7 @@ Create the connection under **Site-to-site VPN > IPsec > Add**:
 
 **Why the Local ID is the public IP:** each firewall only sees its private PortB address. AWS NATs it 1:1 to the Elastic IP. So the IDs must be set explicitly, and IKE switches to NAT-T on UDP 4500. Terraform already opens UDP 500, UDP 4500 and ESP between the two public IPs only.
 
-Configure B first, then A. Under **Site-to-site VPN > IPsec**, both connection indicators should turn green.
+Configure B first, then A. Under **Site-to-site VPN > IPsec**, make sure **Active** is green on both, then click the **Connection** dot on A. Both indicators should turn green, and `ipsec statusall` (Advanced shell) shows `ESTABLISHED`.
 
 The "Create firewall rule" option adds a rule that allows LAN ↔ VPN traffic. Open it and confirm that it's above the WAN rules and limited to the two subnets.
 
@@ -99,11 +101,12 @@ Save the result files and screenshots to `docs/screenshots/`.
 
 ## 6. Backup and restore (Site A)
 
-1. Go to **Backup & firmware > Backup & restore** and click **Backup now** (local).
+1. One-time setup: create the **secure storage master key**. SFOS v22 refuses to create backups without it.
+   Then go to **Backup & firmware > Backup & restore** and click **Backup now** (local), then **Download > Download backup**.
    Download the file to `backups/` (git-ignored) and note the backup encryption password.
 2. Make a visible change, for example by disabling rule 1 (`Deny-LAN-ICMP-Internet`).
    Show that ping to 1.1.1.1 now works.
-3. Restore the backup file you downloaded. The firewall reboots, which takes a few minutes.
+3. Choose **Upload and restore** with the backup file and password. Click OK on the warning, enter the SSMK, and confirm the interface mapping. The firewall reboots, which takes about 6 minutes, and the web filter needs about 2 more minutes after that.
 4. Confirm the change is gone: rule 1 is enabled again, and ping to 1.1.1.1 fails again.
 5. Re-run `client-tests.sh a` to capture the before/after evidence.
 

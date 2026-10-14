@@ -81,6 +81,16 @@ resource "aws_cloudformation_stack" "fw" {
     create = "30m"
     delete = "30m"
   }
+
+  # CloudFormation masks NoEcho parameters, so without this every plan shows a
+  # password "change" and re-updates the stack.
+  lifecycle {
+    ignore_changes = [
+      parameters["BasicAdminPassword"],
+      parameters["ConfigBackupPassword"],
+      parameters["CentralPassword"],
+    ]
+  }
 }
 
 # CloudFormation tags what it creates, which lets us look up IDs the template doesn't output.
@@ -196,7 +206,7 @@ resource "aws_security_group" "eice" {
 resource "aws_security_group" "client" {
   for_each    = local.sites
   name        = "sophos-lab-client-${each.key}"
-  description = "Lab client. Filtering is the firewall's job; this only scopes access."
+  description = "Lab client - filtering is done by the Sophos firewall"
   vpc_id      = data.aws_vpc.site[each.key].id
 
   ingress {

@@ -1,0 +1,9 @@
+== after disabling deny rule (before restore) Wed Oct 14 19:33:37 UTC 2026
+PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
+64 bytes from 1.1.1.1: icmp_seq=1 ttl=56 time=2.19 ms
+64 bytes from 1.1.1.1: icmp_seq=2 ttl=56 time=2.18 ms
+64 bytes from 1.1.1.1: icmp_seq=3 ttl=56 time=2.14 ms
+
+--- 1.1.1.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 2.140/2.168/2.189/0.020 ms
