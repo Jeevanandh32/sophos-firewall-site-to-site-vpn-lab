@@ -54,6 +54,6 @@ terraform init && terraform apply
 terraform output firewalls
 ```
 
-Then follow [RUNBOOK.md](RUNBOOK.md) for the firewall, VPN, testing and backup steps. Run `terraform destroy` when you're done.
+Then follow the [build guide](docs/Sophos-S2S-VPN-Lab-Guide.pdf) for the firewall, VPN, testing and backup steps. Run `terraform destroy` when you're done.
 
 Prerequisite: a subscription to the Sophos Firewall Standalone PAYG AWS Marketplace listing.
