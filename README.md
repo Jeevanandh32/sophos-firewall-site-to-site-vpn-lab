@@ -2,6 +2,8 @@
 
 ![Sophos Firewall site-to-site VPN lab: two firewalled AWS VPCs joined by an IKEv2 IPsec tunnel](docs/images/cover.png)
 
+▶ **[Watch the 1-minute walkthrough](docs/sophos-s2s-vpn-demo.mp4)**, also on my [portfolio](https://jeevanandh32.github.io/#vpn).
+
 Two Sophos Firewall (SFOS v22) appliances in separate AWS VPCs, each protecting an Ubuntu client. They're connected by an IKEv2 IPsec site-to-site tunnel, and the whole lab is deployed with Terraform.
 
 ## Topology
