@@ -1,5 +1,7 @@
 # Sophos Firewall Site-to-Site VPN Lab (AWS)
 
+![Sophos Firewall site-to-site VPN lab: two firewalled AWS VPCs joined by an IKEv2 IPsec tunnel](docs/images/cover.png)
+
 Two Sophos Firewall (SFOS v22) appliances in separate AWS VPCs, each protecting an Ubuntu client. They're connected by an IKEv2 IPsec site-to-site tunnel, and the whole lab is deployed with Terraform.
 
 ## Topology
